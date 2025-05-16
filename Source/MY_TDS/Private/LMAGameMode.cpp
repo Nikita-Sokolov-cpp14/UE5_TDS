@@ -3,3 +3,7 @@
 
 #include "LMAGameMode.h"
 
+ALMAGameMode::ALMAGameMode() {
+	DefaultPawnClass = ALMAGameMode::StaticClass();
+	PlayerControllerClass = ALMAGameMode::StaticClass();
+}

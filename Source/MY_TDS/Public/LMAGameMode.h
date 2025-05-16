@@ -14,4 +14,6 @@ class MY_TDS_API ALMAGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	ALMAGameMode();
 };
