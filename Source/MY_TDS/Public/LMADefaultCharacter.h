@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class ULMAHealthComponent;
+class UAnimMontage;
 
 UCLASS()
 class MY_TDS_API ALMADefaultCharacter : public ACharacter
@@ -18,6 +19,9 @@ class MY_TDS_API ALMADefaultCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ALMADefaultCharacter();
+
+	UFUNCTION()
+	ULMAHealthComponent* GetHealthComponent() const { return HealthComponent; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
@@ -44,6 +48,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Zoom")
 	float MaxArmLength = 2800;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Animation")
+	UAnimMontage* DeathMontage;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -66,6 +73,6 @@ private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Zooming(float value);
-
+	void OnDeath();
 	void OnHealthChanged(float NewHealth);
 };
