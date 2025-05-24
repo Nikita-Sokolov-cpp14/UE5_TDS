@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class ULMAHealthComponent;
 
 UCLASS()
 class MY_TDS_API ALMADefaultCharacter : public ACharacter
@@ -24,6 +25,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	UCameraComponent* CameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components|Health")
+	ULMAHealthComponent* HealthComponent;
 
 	UPROPERTY()
 	UDecalComponent* CurrentCursor = nullptr;
@@ -62,4 +66,6 @@ private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Zooming(float value);
+
+	void OnHealthChanged(float NewHealth);
 };

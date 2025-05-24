@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/DecalComponent.h"
 #include "Components/InputComponent.h"
+#include "LMAHealthComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -28,6 +29,8 @@ ALMADefaultCharacter::ALMADefaultCharacter()
 	CameraComponent->SetupAttachment(SpringArmComponent);
 	CameraComponent->SetFieldOfView(FOV);
 	CameraComponent->bUsePawnControlRotation = false;
+
+	HealthComponent = CreateDefaultSubobject<ULMAHealthComponent>("HealthComponent");
 }
 
 // Called when the game starts or when spawned
@@ -39,7 +42,15 @@ void ALMADefaultCharacter::BeginPlay()
 	{
 		CurrentCursor = UGameplayStatics::SpawnDecalAtLocation(GetWorld(), CursorMaterial, CursorSize, FVector(0));
 	}
-	
+
+	//OnHealthChanged(HealthComponent->GetHealth());
+	//HealthComponent->OnDeath.AddUObject(this, &ALMADefaultCharacter::OnDeath);
+	//HealthComponent->OnHealthChanged.AddUObject(this, &ALMADefaultCharacter::OnHealthChanged);
+}
+
+void ALMADefaultCharacter::OnHealthChanged(float NewHealth)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Health = %f"), NewHealth));
 }
 
 // Called every frame
@@ -85,9 +96,10 @@ void ALMADefaultCharacter::Zooming(float value)
 {
 	float delta = ArmLengthStep * value;
 	ArmLength = FMath::Clamp(ArmLength + delta, MinArmLength, MaxArmLength);
-	USpringArmComponent* SpringArm = FindComponentByClass<USpringArmComponent>();
-	if (SpringArm)
-	{
-		SpringArm->TargetArmLength = ArmLength;
-	}
+	//USpringArmComponent* SpringArm = FindComponentByClass<USpringArmComponent>();
+	//if (SpringArm)
+	//{
+	//	SpringArm->TargetArmLength = ArmLength;
+	//}
+	SpringArmComponent->TargetArmLength = ArmLength;
 }
