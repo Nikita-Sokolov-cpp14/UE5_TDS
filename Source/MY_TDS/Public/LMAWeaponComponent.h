@@ -8,6 +8,7 @@
 
 class ALMABaseWeapon;
 class UAnimMontage;
+struct FAmmoWeapon;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MY_TDS_API ULMAWeaponComponent : public UActorComponent
@@ -20,6 +21,9 @@ public:
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable)
+	bool GetCurrentWeaponAmmo(FAmmoWeapon& AmmoWeapon) const;
 
 	void Fire();
 	void StopFire();
