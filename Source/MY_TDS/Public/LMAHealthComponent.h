@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "LMAHealthComponent.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FOnDeath);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -18,7 +18,7 @@ public:
 	// Sets default values for this component's properties
 	ULMAHealthComponent();
 
-	//UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeath;
 
 	FOnHealthChanged OnHealthChanged;

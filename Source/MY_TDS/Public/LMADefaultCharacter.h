@@ -55,6 +55,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	ULMAWeaponComponent* WeaponComponent;
 
+	UFUNCTION()
+	void OnDeath();
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -77,6 +80,6 @@ private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Zooming(float value);
-	void OnDeath();
+
 	void OnHealthChanged(float NewHealth);
 };
