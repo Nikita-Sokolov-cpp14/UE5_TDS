@@ -77,8 +77,12 @@ private:
 
 	float FOV = 55.0f;
 
+	bool isSprint = false;
+
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+	void ActivateSprint();
+	void DeactivateSprint();
 	void Zooming(float value);
 
 	void OnHealthChanged(float NewHealth);

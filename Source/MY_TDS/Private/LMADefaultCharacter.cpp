@@ -98,14 +98,30 @@ void ALMADefaultCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("MoveForward", this, &ALMADefaultCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ALMADefaultCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Zooming", this, &ALMADefaultCharacter::Zooming);
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ALMADefaultCharacter::ActivateSprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ALMADefaultCharacter::DeactivateSprint);
 
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, WeaponComponent, &ULMAWeaponComponent::Fire);
 	PlayerInputComponent->BindAction("Fire", IE_Released, WeaponComponent, &ULMAWeaponComponent::StopFire);
 	PlayerInputComponent->BindAction("Reload", IE_Pressed, WeaponComponent, &ULMAWeaponComponent::Reload);
 }
 
+void ALMADefaultCharacter::ActivateSprint() 
+{
+	isSprint = true;
+}
+
+void ALMADefaultCharacter::DeactivateSprint()
+{
+	isSprint = false;
+}
+
 void ALMADefaultCharacter::MoveForward(float Value)
 {
+	if (isSprint)
+	{
+		Value *= 2;
+	}
 	AddMovementInput(GetActorForwardVector(), Value);
 }
 
